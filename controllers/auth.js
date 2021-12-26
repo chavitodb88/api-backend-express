@@ -25,7 +25,7 @@ const createUser = async (req, res = response) => {
 
         res.status(201).json({
             ok: true,
-            ui: userDB.id,
+            uid: userDB.id,
             name: userDB.name,
             token
         });
@@ -62,7 +62,7 @@ const login = async (req, res = response) => {
 
         res.json({
             ok: true,
-            ui: userDB.id,
+            uid: userDB.id,
             name: userDB.name,
             token
         });
@@ -80,6 +80,8 @@ const renewToken = async(req, res = response) => {
         const token = await generateJWT(req.uid, req.name)
         res.json({
             ok: true,
+            uid: req.uid,
+            name: req.name,
             token
         });
     } catch (error) {
