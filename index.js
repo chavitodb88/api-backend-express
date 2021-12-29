@@ -2,9 +2,12 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const { dbConnection } = require('./database/config');
+const { createRoles, createAdminUser } = require('./libs/initialSetup');
 const app = express();
 
 dbConnection();
+createRoles();
+createAdminUser();
 
 app.use(cors());
 

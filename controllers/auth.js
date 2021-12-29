@@ -1,6 +1,7 @@
 const bcryptjs = require("bcryptjs");
 const { response } = require("express");
 const { generateJWT } = require("../helpers/jwt");
+const Role = require("../models/Role");
 const User = require("../models/User");
 
 const createUser = async (req, res = response) => {
@@ -17,7 +18,10 @@ const createUser = async (req, res = response) => {
         userDB = new User(req.body);
 
         const salt = bcryptjs.genSaltSync();
-        userDB.password = bcryptjs.hashSync(password, salt)
+        userDB.password = bcryptjs.hashSync(password, salt);
+
+        const userRole = await Role.findOne({name:"user"});
+        userDB.roles[0] = userRole.id;
 
         await userDB.save();
 

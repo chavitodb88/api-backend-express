@@ -7,13 +7,17 @@ const UserSchema = Schema({
     },
     email:{
         type:String,
-        require:true,
         required:true
     },
     password:{
         type:String,
         required:true
     },
+    roles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Role',
+        required:true
+    }]
 });
 
 UserSchema.method('toJSON' ,function(){
